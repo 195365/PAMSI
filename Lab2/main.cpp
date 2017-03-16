@@ -1,49 +1,75 @@
 #include <iostream>
+#include <cstdio>
+#include <ctime>
 
 using namespace std;
-template<class typ>
 class Tablica {
 public:
-	int Rozmiar() {
-		return rozmiar;
-	}
-	void ZapisanieElemantu(int index, typ wartosc) {
-		if (index < rozmiar) {
-			tab[index] = wartosc;
-		} else {
-			cout << "Index wiekszy niz rozmiar tablicy" << endl;
-		}
-	}
-	typ OdczytanieElementu(int index) {
-		if (index < rozmiar) {
-			return tab[index];
-		} else {
-			cout << "Index wiekszy niz rozmiar tablicy" << endl;
-			return NULL;
-		}
-	}
-	Tablica() {
-		rozmiar = 1;
-		tab = new typ[rozmiar];
-	}
-	;
+	int Rozmiar();
+	int ZapisanieElemantu(int index, int wartosc);
+	int OdczytanieElementu(int index);
+	Tablica();
 private:
-	typ *tab;
+	int *tab;
 	int rozmiar;
-	void ZmienRozmiar(int nowyRozmiar) {
-		typ *temp = new typ[nowyRozmiar];
-		for (int i = 0; i < rozmiar; i++) {
-			temp[i] = tab[i];
-		}
-		delete[] *tab;
-		tab = temp;
-		delete[] *temp;
-	}
+	int* ZmienRozmiar(int nowyRozmiar);
 };
 
-int main() {
-	Tablica<int> tab;
-	tab.ZapisanieElemantu(0, 5);
-	cout << tab.OdczytanieElementu(0);
+int Tablica::Rozmiar() {
+	return rozmiar;
+}
+
+int Tablica::ZapisanieElemantu(int index, int wartosc) {
+	if (index < rozmiar) {
+		tab[index] = wartosc;
+	}
+	if (index == rozmiar) {
+		tab=ZmienRozmiar(rozmiar + 1);	//strategia powiększania o +1
+		//cout << "Zwiekszono rozmiar tablicy o 1" << endl;
+		//tab = ZmienRozmiar(rozmiar * 2);	//strategia zwiększania x2
+		//cout<<"Zwiekszono rozmiar tablicy x2"<<endl;
+		tab[index] = wartosc;
+	}
+	if (index > rozmiar) {
+		return 1;
+	}
 	return 0;
 }
+
+int Tablica::OdczytanieElementu(int index) {
+	if (index < rozmiar) {
+		return tab[index];
+	} else {
+		cout << "Index wiekszy niz rozmiar tablicy" << endl;
+		return NULL;
+	}
+}
+
+int* Tablica::ZmienRozmiar(int nowyRozmiar) {
+	int *temp = new int[nowyRozmiar];
+	for (int i = 0; i < rozmiar; i++) {
+		temp[i] = tab[i];
+	}
+	delete[] tab;
+	rozmiar = nowyRozmiar;
+	return temp;
+}
+
+Tablica::Tablica() {
+	rozmiar = 10;
+	tab = new int[rozmiar];
+}
+
+int main() {
+	Tablica tab;
+	clock_t start = clock();
+	for (int i = 0; i < 100000; i++) {
+		tab.ZapisanieElemantu(i, i);
+	}
+	cout<<"Czas wykonania: "<<static_cast < double >(clock() - start)/CLOCKS_PER_SEC<<"s"<<endl;
+	/*for (int i = 0; i < 1000000; i++) {
+		cout << tab.OdczytanieElementu(i) << endl;
+	}*/
+	return 0;
+}
+
