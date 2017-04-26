@@ -10,11 +10,11 @@
 
 class Istack{
 public:
-	virtual void Remove();
-	virtual void Push(int value);
-	virtual int Pop();
-	virtual int Size();
-	virtual ~Istack();
+	virtual void Remove()=0;
+	virtual void Push(int value)=0;
+	virtual int Pop()=0;
+	virtual int Size()=0;
+	virtual ~Istack(){};
 };
 
 

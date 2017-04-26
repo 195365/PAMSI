@@ -3,14 +3,15 @@
 
 class Ilist{
 public:
-	virtual void Add(int value,int position);
-	virtual void Remove(int position);
-	virtual int Get(int position);
-	virtual int Size();
-	virtual int& Head();
-	virtual ~Ilist();
+	virtual int Add(int value, unsigned int position)=0;
+	virtual int Remove(unsigned int position)=0;
+	virtual int Get(unsigned int position)=0;
+	virtual int Find(int wartosc)=0;
+	virtual unsigned int Size()=0;
+	virtual ~Ilist(){};
 };
 
 
 
 #endif
+

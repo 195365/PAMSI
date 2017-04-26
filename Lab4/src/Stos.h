@@ -7,20 +7,19 @@
 
 #ifndef STOS_H_
 #define STOS_H_
-#include <Istack.h>
-#include <Wykonywalny.h>
+#include "Istack.h"
+#include "Lista.h"
 
-
-class Stos: public Istack, public Wykonywalny  {
+class Stos: public Istack {
 public:
+	Stos();
 	void Remove();
 	void Push(int value);
 	int Pop();
 	int Size();
-	void PrzygotujAlgorytmDoWykonania(int wielkosc_problemu);
-	void WykonajAlgorytm(int wielkosc_problemu);
 private:
-	int *tab;
+	Lista lista;
+	unsigned int rozmiar;
 };
 
 
