@@ -1,0 +1,24 @@
+a.out: main.o Mierzalny.o quicksort.o Stoper.o TablicaO1.o
+		g++ main.o Mierzalny.o quicksort.o Stoper.o TablicaO1.o
+
+main.o: main.cpp Mierzalny.h quicksort.h
+		g++ -c -Wall -std=c++11 -pedantic main.cpp
+
+TablicaO1.o: TablicaO1.h TablicaO1.cpp
+		g++ -c -Wall -pedantic TablicaO1.cpp
+
+quicksort.o: quicksort.h TablicaO1.h quicksort.cpp
+		g++ -c -Wall -pedantic quicksort.cpp
+
+Stoper.o: Stoper.h Stoper.cpp
+		g++ -c -Wall -pedantic Stoper.cpp
+
+Mierzalny.o: Mierzalny.h Stoper.h Mierzalny.cpp
+		g++ -c -Wall -pedantic Mierzalny.cpp
+
+Wykonywalny.o: Wykonywalny.h
+		g++ -c -Wall -pedantic Wykonywalny.h
+
+
+
+
